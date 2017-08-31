@@ -17,7 +17,7 @@ public class VolumeCommand extends Command {
             return;
         }
         GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
-        if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
+        if (musicManager == null || musicManager.getPlayer().getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
@@ -36,12 +36,12 @@ public class VolumeCommand extends Command {
             return;
         }
         if (context.getArgs().length == 0) {
-            context.reply(String.format("Current volume: **%d**", musicManager.player.getVolume()));
+            context.reply(String.format("Current volume: **%d**", musicManager.getPlayer().getVolume()));
             return;
         }
         try {
             int newVolume = Math.max(1, Math.min(150, Integer.parseInt(context.getArgs()[0])));
-            musicManager.player.setVolume(newVolume);
+            musicManager.getPlayer().setVolume(newVolume);
             context.reply(String.format("Set volume to **%d**", newVolume));
         } catch (NumberFormatException e) {
             context.reply("Invalid volume. Bounds: `10 - 100`");

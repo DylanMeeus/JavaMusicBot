@@ -12,13 +12,14 @@ import java.util.Map;
 import static ovh.not.javamusicbot.Utils.getPrivateChannel;
 
 public class GuildMusicManager {
-    public static final Map<Guild, GuildMusicManager> GUILDS = new HashMap<>();
+
+    private static final Map<Guild, GuildMusicManager> GUILDS = new HashMap<>();
     private final Guild guild;
-    public final AudioPlayer player;
-    public final TrackScheduler scheduler;
+    private final AudioPlayer player;
+    private final TrackScheduler scheduler;
     private final AudioPlayerSendHandler sendHandler;
-    public boolean open = false;
-    public VoiceChannel channel = null;
+    private boolean open = false;
+    private VoiceChannel channel = null;
 
     private GuildMusicManager(Guild guild, TextChannel textChannel, AudioPlayerManager playerManager) {
         this.guild = guild;
@@ -28,6 +29,43 @@ public class GuildMusicManager {
         this.sendHandler = new AudioPlayerSendHandler(player);
         this.guild.getAudioManager().setSendingHandler(sendHandler);
     }
+
+    public static Map<Guild, GuildMusicManager> getGUILDS() {
+        return GUILDS;
+    }
+
+    public Guild getGuild() {
+        return guild;
+    }
+
+    public AudioPlayer getPlayer() {
+        return player;
+    }
+
+    public TrackScheduler getScheduler() {
+        return scheduler;
+    }
+
+    public AudioPlayerSendHandler getSendHandler() {
+        return sendHandler;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public VoiceChannel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(VoiceChannel channel) {
+        this.channel = channel;
+    }
+
 
     public void open(VoiceChannel channel, User user) {
         try {

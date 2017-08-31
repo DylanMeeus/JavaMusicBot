@@ -39,12 +39,12 @@ public class QueueCommand extends Command {
     @Override
     public void on(Context context) {
         GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
-        if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
+        if (musicManager == null || musicManager.getPlayer().getPlayingTrack() == null) {
             context.reply("No music is queued or playing on this guild!");
             return;
         }
-        AudioTrack playing = musicManager.player.getPlayingTrack();
-        Queue<AudioTrack> queue = musicManager.scheduler.queue;
+        AudioTrack playing = musicManager.getPlayer().getPlayingTrack();
+        Queue<AudioTrack> queue = musicManager.getScheduler().queue;
         StringBuilder builder = new StringBuilder();
         if (context.getArgs().length > 0 && context.getArgs()[0].equalsIgnoreCase("all")) {
             long durationTotal = playing.getDuration();

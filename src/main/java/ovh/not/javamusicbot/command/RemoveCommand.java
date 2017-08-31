@@ -15,7 +15,7 @@ public class RemoveCommand extends Command {
     @Override
     public void on(Context context) {
         GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
-        if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
+        if (musicManager == null || musicManager.getPlayer().getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
@@ -31,7 +31,7 @@ public class RemoveCommand extends Command {
             context.reply("Invalid song position!");
             return;
         }
-        List<AudioTrack> queue = (List<AudioTrack>) musicManager.scheduler.queue;
+        List<AudioTrack> queue = (List<AudioTrack>) musicManager.getScheduler().queue;
         if (position > queue.size()) {
             context.reply("Invalid song position! Maximum: " + queue.size());
             return;

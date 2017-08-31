@@ -75,10 +75,10 @@ public class DiscordFMCommand extends Command {
 
         GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.getEvent().getGuild(),
                 context.getEvent().getTextChannel(), playerManager);
-        if (musicManager.open && musicManager.player.getPlayingTrack() != null
-                && musicManager.channel != channel
-                && !context.getEvent().getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
-            context.reply("dabBot is already playing music in " + musicManager.channel.getName() + " so it cannot " +
+        if (musicManager.isOpen() && musicManager.getPlayer().getPlayingTrack() != null
+                && musicManager.getChannel() != channel
+                && !context.getEvent().getMember().hasPermission(musicManager.getChannel(), Permission.VOICE_MOVE_OTHERS)) {
+            context.reply("dabBot is already playing music in " + musicManager.getChannel().getName() + " so it cannot " +
                     "be moved. Members with the `VOICE_MOVE_OTHERS` permission are exempt from this.");
             return;
         }
@@ -108,10 +108,10 @@ public class DiscordFMCommand extends Command {
             return;
         }
 
-        musicManager.scheduler.queue.clear();
-        musicManager.scheduler.repeat = false;
-        musicManager.scheduler.loop = false;
-        musicManager.player.stopTrack();
+        musicManager.getScheduler().queue.clear();
+        musicManager.getScheduler() .repeat = false;
+        musicManager.getScheduler().loop = false;
+        musicManager.getPlayer().stopTrack();
 
         LoadResultHandler handler = new LoadResultHandler(commandManager, musicManager, playerManager, context);
         handler.verbose = false;
@@ -120,7 +120,7 @@ public class DiscordFMCommand extends Command {
             playerManager.loadItem(song, handler);
         }
 
-        if (!musicManager.open) {
+        if (!musicManager.isOpen()) {
             musicManager.open(channel, context.getEvent().getAuthor());
         }
     }

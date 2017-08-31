@@ -133,12 +133,12 @@ public class AdminCommand extends Command {
         @Override
         public void on(Context context) {
             GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
-            if (musicManager == null || !musicManager.open || musicManager.player.getPlayingTrack() == null) {
+            if (musicManager == null || !musicManager.isOpen() || musicManager.getPlayer().getPlayingTrack() == null) {
                 context.reply("Not playing music!");
                 return;
             }
             try {
-                context.reply(Utils.encode(playerManager, musicManager.player.getPlayingTrack()));
+                context.reply(Utils.encode(playerManager, musicManager.getPlayer().getPlayingTrack()));
             } catch (IOException e) {
                 e.printStackTrace();
                 context.reply("An error occurred!");
@@ -176,10 +176,10 @@ public class AdminCommand extends Command {
                 context.reply("An error occurred!");
                 return;
             }
-            if (!musicManager.open) {
+            if (!musicManager.isOpen()) {
                 musicManager.open(channel, context.getEvent().getAuthor());
             }
-            musicManager.player.playTrack(track);
+            musicManager.getPlayer().playTrack(track);
         }
     }
 

@@ -17,7 +17,7 @@ public class JumpCommand extends Command {
     @Override
     public void on(Context context) {
         GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
-        if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
+        if (musicManager == null || musicManager.getPlayer().getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
@@ -61,7 +61,7 @@ public class JumpCommand extends Command {
         long time = Duration.ofHours(hours).toMillis();
         time += Duration.ofMinutes(minutes).toMillis();
         time += Duration.ofSeconds(seconds).toMillis();
-        musicManager.player.getPlayingTrack().setPosition(time);
+        musicManager.getPlayer().getPlayingTrack().setPosition(time);
         context.reply("Jumped to the specified position. Use `%prefix%nowplaying` to see the current song & position.");
     }
 }

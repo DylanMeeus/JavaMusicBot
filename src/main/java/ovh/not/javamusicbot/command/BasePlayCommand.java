@@ -35,10 +35,10 @@ abstract class BasePlayCommand extends Command {
         }
         GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.getEvent().getGuild(),
                 context.getEvent().getTextChannel(), playerManager);
-        if (musicManager.open && musicManager.player.getPlayingTrack() != null
-                && musicManager.channel != channel
-                && !context.getEvent().getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
-            context.reply("dabBot is already playing music in " + musicManager.channel.getName() + " so it cannot " +
+        if (musicManager.isOpen() && musicManager.getPlayer().getPlayingTrack() != null
+                && musicManager.getChannel() != channel
+                && !context.getEvent().getMember().hasPermission(musicManager.getChannel(), Permission.VOICE_MOVE_OTHERS)) {
+            context.reply("dabBot is already playing music in " + musicManager.getChannel().getName() + " so it cannot " +
                     "be moved. Members with the `VOICE_MOVE_OTHERS` permission are exempt from this.");
             return;
         }
@@ -53,7 +53,7 @@ abstract class BasePlayCommand extends Command {
         context.setArgs(this.transformQuery(context.getArgs()));
 
         playerManager.loadItem(String.join(" ", context.getArgs()), handler);
-        if (!musicManager.open) {
+        if (!musicManager.isOpen()) {
             musicManager.open(channel, context.getEvent().getAuthor());
         }
     }

@@ -169,10 +169,10 @@ class Listener extends ListenerAdapter {
 
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
-        if (GuildMusicManager.GUILDS.containsKey(event.getGuild())) {
-            GuildMusicManager musicManager = GuildMusicManager.GUILDS.remove(event.getGuild());
-            musicManager.player.stopTrack();
-            musicManager.scheduler.queue.clear();
+        if (GuildMusicManager.getGUILDS().containsKey(event.getGuild())) {
+            GuildMusicManager musicManager = GuildMusicManager.getGUILDS().remove(event.getGuild());
+            musicManager.getPlayer().stopTrack();
+            musicManager.getScheduler().queue.clear();
             musicManager.close();
         }
         event.getGuild().getAudioManager().closeAudioConnection();
