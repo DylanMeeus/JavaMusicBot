@@ -41,10 +41,16 @@ public final class MusicBot {
             new ShardManager();
             return;
         }
-        int shardCount = Integer.parseInt(args[0]);
-        int minShard = Integer.parseInt(args[1]);
-        int maxShard = Integer.parseInt(args[2]);
-        new ShardManager(shardCount, minShard, maxShard);
+        try {
+            int shardCount = Integer.parseInt(args[0]);
+            int minShard = Integer.parseInt(args[1]);
+            int maxShard = Integer.parseInt(args[2]);
+            new ShardManager(shardCount, minShard, maxShard);
+        } catch (Exception ex) {
+            System.out.println("Could not instantiate with given variables, will create default ShardManager");
+            new ShardManager();
+            return;
+        }
     }
 
     public static ConfigLoadResult getConfigs() {
