@@ -108,13 +108,13 @@ public class DiscordFMCommand extends Command {
             return;
         }
 
-        musicManager.getScheduler().queue.clear();
-        musicManager.getScheduler() .repeat = false;
-        musicManager.getScheduler().loop = false;
+        musicManager.getScheduler().getQueue().clear();
+        musicManager.getScheduler().setRepeat(false);
+        musicManager.getScheduler().setLoop(false);
         musicManager.getPlayer().stopTrack();
 
         LoadResultHandler handler = new LoadResultHandler(commandManager, musicManager, playerManager, context);
-        handler.verbose = false;
+        handler.setVerbose(false);
 
         for (String song : songs) {
             playerManager.loadItem(song, handler);

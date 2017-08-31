@@ -44,7 +44,7 @@ public class QueueCommand extends Command {
             return;
         }
         AudioTrack playing = musicManager.getPlayer().getPlayingTrack();
-        Queue<AudioTrack> queue = musicManager.getScheduler().queue;
+        Queue<AudioTrack> queue = musicManager.getScheduler().getQueue();
         StringBuilder builder = new StringBuilder();
         if (context.getArgs().length > 0 && context.getArgs()[0].equalsIgnoreCase("all")) {
             long durationTotal = playing.getDuration();

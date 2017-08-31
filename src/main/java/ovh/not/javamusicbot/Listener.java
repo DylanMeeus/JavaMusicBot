@@ -81,7 +81,7 @@ class Listener extends ListenerAdapter {
 
         if (config.patreon) {
             for (Member member : event.getGuild().getMembers()) {
-                if ((shard.manager.userManager.hasSupporter(member.getUser())
+                if ((shard.manager.getUserManager().hasSupporter(member.getUser())
                         && (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)))
                         || Utils.stringArrayContains(config.owners, member.getUser().getId())) {
                     return;
@@ -172,7 +172,7 @@ class Listener extends ListenerAdapter {
         if (GuildMusicManager.getGUILDS().containsKey(event.getGuild())) {
             GuildMusicManager musicManager = GuildMusicManager.getGUILDS().remove(event.getGuild());
             musicManager.getPlayer().stopTrack();
-            musicManager.getScheduler().queue.clear();
+            musicManager.getScheduler().getQueue().clear();
             musicManager.close();
         }
         event.getGuild().getAudioManager().closeAudioConnection();

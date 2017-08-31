@@ -14,7 +14,7 @@ public class ResetCommand extends Command {
         if (GuildMusicManager.getGUILDS().containsKey(context.getEvent().getGuild())) {
             GuildMusicManager musicManager = GuildMusicManager.getGUILDS().remove(context.getEvent().getGuild());
             musicManager.getPlayer().stopTrack();
-            musicManager.getScheduler().queue.clear();
+            musicManager.getScheduler().getQueue().clear();
             musicManager.close();
             context.reply("Reset GuildMusicManager!");
         } else {

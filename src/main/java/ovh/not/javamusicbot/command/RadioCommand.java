@@ -88,9 +88,9 @@ public class RadioCommand extends Command {
             return;
         }
         LoadResultHandler handler = new LoadResultHandler(commandManager, musicManager, playerManager, context);
-        musicManager.getScheduler().queue.clear();
-        musicManager.getScheduler().repeat = false;
-        musicManager.getScheduler().loop = false;
+        musicManager.getScheduler().getQueue().clear();
+        musicManager.getScheduler().setRepeat(false);
+        musicManager.getScheduler().setLoop(false);
         musicManager.getPlayer().stopTrack();
         playerManager.loadItem(url, handler);
         if (!musicManager.isOpen()) {

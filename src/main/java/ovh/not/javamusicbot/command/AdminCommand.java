@@ -110,7 +110,7 @@ public class AdminCommand extends Command {
                 shard.restart();
             } else {
                 int id = Integer.parseInt(context.getArgs()[0]);
-                for (ShardManager.Shard s : shard.manager.shards) {
+                for (ShardManager.Shard s : shard.manager.getShards()) {
                     if (s.id == id) {
                         context.reply("Restarting shard " + s.id + "...");
                         s.restart();
@@ -210,7 +210,7 @@ public class AdminCommand extends Command {
         @Override
         public void on(Context context) {
             try {
-                context.getShard().manager.userManager.loadRoles();
+                context.getShard().manager.getUserManager().loadRoles();
             } catch (Exception e) {
                 context.reply("Could not resynchronized roles: " + e.getMessage());
                 e.printStackTrace();

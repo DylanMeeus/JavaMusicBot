@@ -43,11 +43,11 @@ abstract class BasePlayCommand extends Command {
             return;
         }
         LoadResultHandler handler = new LoadResultHandler(commandManager, musicManager, playerManager, context);
-        handler.allowSearch = allowSearch;
-        handler.isSearch = isSearch;
+        handler.setAllowSearch(allowSearch);
+        handler.setSearch(isSearch);
         Set<String> flags = context.parseFlags();
         if (flags.contains("first") || flags.contains("f")) {
-            handler.setFirstInQueue = true;
+            handler.setSetFirstInQueue(true);
         }
 
         context.setArgs(this.transformQuery(context.getArgs()));

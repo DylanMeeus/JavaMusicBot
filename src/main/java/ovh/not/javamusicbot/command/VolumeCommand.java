@@ -23,7 +23,7 @@ public class VolumeCommand extends Command {
         }
         boolean found = false;
         for (Member member : context.getEvent().getGuild().getMembers()) {
-            if ((context.getShard().manager.userManager.hasSuperSupporter(member.getUser())
+            if ((context.getShard().manager.getUserManager().hasSuperSupporter(member.getUser())
                     && (member.isOwner() || member.hasPermission(Permission.ADMINISTRATOR)))
                     || Utils.stringArrayContains(MusicBot.getConfigs().config.owners, member.getUser().getId())) {
                 found = true;

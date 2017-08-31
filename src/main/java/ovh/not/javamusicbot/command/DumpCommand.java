@@ -39,7 +39,7 @@ public class DumpCommand extends Command {
             context.reply("No music is playing on this guild!");
             return;
         }
-        String[] items = new String[musicManager.getScheduler().queue.size() + 1];
+        String[] items = new String[musicManager.getScheduler().getQueue().size() + 1];
         AudioTrack current = musicManager.getPlayer().getPlayingTrack();
         try {
             items[0] = Utils.encode(playerManager, current);
@@ -49,7 +49,7 @@ public class DumpCommand extends Command {
             return;
         }
         int i = 1;
-        for (AudioTrack track : musicManager.getScheduler().queue) {
+        for (AudioTrack track : musicManager.getScheduler().getQueue()) {
             try {
                 items[i] = encode(playerManager, track);
             } catch (IOException e) {

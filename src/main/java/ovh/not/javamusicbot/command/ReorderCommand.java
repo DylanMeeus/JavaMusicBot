@@ -32,7 +32,7 @@ public class ReorderCommand extends Command {
             context.reply("Invalid song number or position!");
             return;
         }
-        List<AudioTrack> queue = (List<AudioTrack>) musicManager.getScheduler().queue;
+        List<AudioTrack> queue = (List<AudioTrack>) musicManager.getScheduler().getQueue();
         int index = songNum - 1;
         AudioTrack track = queue.get(index);
         if (track == null) {

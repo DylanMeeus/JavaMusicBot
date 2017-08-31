@@ -24,14 +24,14 @@ public class ChooseCommand extends Command {
         Selection<AudioTrack, String> selection = commandManager.getSelectors().get(member);
         if (context.getArgs().length == 0) {
             commandManager.getSelectors().remove(member);
-            selection.callback.accept(false, null);
+            selection.getCallback().accept(false, null);
             return;
         }
         switch (context.getArgs()[0].toLowerCase()) {
             case "c":
             case "cancel":
                 commandManager.getSelectors().remove(member);
-                selection.callback.accept(false, null);
+                selection.getCallback().accept(false, null);
                 return;
         }
         for (String arg : context.getArgs()) {
@@ -49,7 +49,7 @@ public class ChooseCommand extends Command {
                 return;
             }
             AudioTrack track = selection.items[selected - 1];
-            selection.callback.accept(true, track);
+            selection.getCallback().accept(true, track);
         }
         commandManager.getSelectors().remove(member);
     }

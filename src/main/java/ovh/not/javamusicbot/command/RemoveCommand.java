@@ -31,7 +31,7 @@ public class RemoveCommand extends Command {
             context.reply("Invalid song position!");
             return;
         }
-        List<AudioTrack> queue = (List<AudioTrack>) musicManager.getScheduler().queue;
+        List<AudioTrack> queue = (List<AudioTrack>) musicManager.getScheduler().getQueue();
         if (position > queue.size()) {
             context.reply("Invalid song position! Maximum: " + queue.size());
             return;

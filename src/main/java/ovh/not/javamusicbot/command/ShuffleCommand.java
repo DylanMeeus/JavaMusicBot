@@ -18,7 +18,7 @@ public class ShuffleCommand extends Command {
             context.reply("No music is playing on this guild!");
             return;
         }
-        Collections.shuffle((List<?>) musicManager.getScheduler().queue);
+        Collections.shuffle((List<?>) musicManager.getScheduler().getQueue());
         context.reply("Queue shuffled!");
     }
 }

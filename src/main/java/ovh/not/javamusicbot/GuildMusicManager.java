@@ -101,8 +101,8 @@ public class GuildMusicManager {
     public static GuildMusicManager getOrCreate(Guild guild, TextChannel textChannel, AudioPlayerManager playerManager) {
         if (GUILDS.containsKey(guild)) {
             GuildMusicManager manager = GUILDS.get(guild);
-            if (manager.scheduler.textChannel != textChannel) {
-                manager.scheduler.textChannel = textChannel;
+            if (manager.scheduler.getTextChannel() != textChannel) {
+                manager.scheduler.setTextChannel(textChannel);
             }
             return manager;
         }
