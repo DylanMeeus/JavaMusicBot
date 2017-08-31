@@ -22,6 +22,6 @@ public class SearchCommand extends Command {
         args[0] = "ytsearch: ";
         System.arraycopy(context.getArgs(), 0, args, 1, context.getArgs().length);
         context.setArgs(args);
-        commandManager.commands.get("play").on(context);
+        commandManager.getCommands().get("play").on(context);
     }
 }

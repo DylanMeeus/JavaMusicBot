@@ -1,7 +1,6 @@
 package ovh.not.javamusicbot.command;
 
 import ovh.not.javamusicbot.Command;
-import ovh.not.javamusicbot.Constants;
 import ovh.not.javamusicbot.CommandManager;
 import ovh.not.javamusicbot.MusicBot;
 
@@ -20,9 +19,9 @@ public class HelpCommand extends Command {
     @Override
     public void on(Context context) {
         StringBuilder builder = new StringBuilder("**Commands:**");
-        List<String> added = new ArrayList<>(commandManager.commands.size());
+        List<String> added = new ArrayList<>(commandManager.getCommands().size());
         Map<String, String> commandDescriptions = MusicBot.getConfigs().constants.commandDescriptions;
-        for (Command command : commandManager.commands.values()) {
+        for (Command command : commandManager.getCommands().values()) {
             if (added.contains(command.getNames()[0]) || command.isHidden()) {
                 continue;
             }

@@ -17,20 +17,20 @@ public class ChooseCommand extends Command {
     @Override
     public void on(Context context) {
         Member member = context.getEvent().getMember();
-        if (!commandManager.selectors.containsKey(member)) {
+        if (!commandManager.getSelectors().containsKey(member)) {
             context.reply("You do not have a selector in this guild!");
             return;
         }
-        Selection<AudioTrack, String> selection = commandManager.selectors.get(member);
+        Selection<AudioTrack, String> selection = commandManager.getSelectors().get(member);
         if (context.getArgs().length == 0) {
-            commandManager.selectors.remove(member);
+            commandManager.getSelectors().remove(member);
             selection.callback.accept(false, null);
             return;
         }
         switch (context.getArgs()[0].toLowerCase()) {
             case "c":
             case "cancel":
-                commandManager.selectors.remove(member);
+                commandManager.getSelectors().remove(member);
                 selection.callback.accept(false, null);
                 return;
         }
@@ -51,6 +51,6 @@ public class ChooseCommand extends Command {
             AudioTrack track = selection.items[selected - 1];
             selection.callback.accept(true, track);
         }
-        commandManager.selectors.remove(member);
+        commandManager.getSelectors().remove(member);
     }
 }

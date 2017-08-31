@@ -66,7 +66,7 @@ public class LoadResultHandler implements AudioLoadResultHandler {
                 }
                 trackLoaded(track);
             });
-            commandManager.selectors.put(context.getEvent().getMember(), selection);
+            commandManager.getSelectors().put(context.getEvent().getMember(), selection);
             context.reply(selection.createMessage());
         } else {
             audioPlaylist.getTracks().forEach(musicManager.scheduler::queue);
