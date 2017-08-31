@@ -10,7 +10,7 @@ public class PauseCommand extends Command {
 
     @Override
     public void on(Context context) {
-        GuildMusicManager musicManager = GuildMusicManager.get(context.event.getGuild());
+        GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
         if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;

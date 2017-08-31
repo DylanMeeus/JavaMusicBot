@@ -15,31 +15,31 @@ public class MoveCommand extends Command {
 
     @Override
     public void on(Context context) {
-        GuildMusicManager musicManager = GuildMusicManager.get(context.event.getGuild());
+        GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
         if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
         if (musicManager.open && musicManager.player.getPlayingTrack() != null
-                && !context.event.getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
+                && !context.getEvent().getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
             context.reply("dabBot is already playing music in " + musicManager.channel.getName() + " so it cannot " +
                     "be moved. Members with the `VOICE_MOVE_OTHERS` permission are exempt from this.");
             return;
         }
-        if (context.args.length == 0) {
+        if (context.getArgs().length == 0) {
             context.reply("Usage: %prefix%move <voice channel name>");
             return;
         }
-        Guild guild = context.event.getGuild();
-        List<VoiceChannel> channels = guild.getVoiceChannelsByName(String.join(" ", context.args), true);
-        if (channels == null || channels.size() == 0) {
+        Guild guild = context.getEvent().getGuild();
+        List<VoiceChannel> channels = guild.getVoiceChannelsByName(String.join(" ", context.getArgs()), true);
+        if (channels == null || channels.isEmpty()) {
             context.reply("Could not find the specified voice channel!");
             return;
         }
         VoiceChannel channel = channels.get(0);
         musicManager.player.setPaused(true);
         musicManager.close();
-        musicManager.open(channel, context.event.getAuthor());
+        musicManager.open(channel, context.getEvent().getAuthor());
         musicManager.player.setPaused(false);
         context.reply("Moved voice channel!");
     }

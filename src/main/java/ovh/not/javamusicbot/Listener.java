@@ -55,14 +55,14 @@ class Listener extends ListenerAdapter {
             return;
         }
         Command.Context context = command.new Context();
-        context.event = event;
-        context.shard = shard;
+        context.setEvent(event);
+        context.setShard(shard);
         if (matcher.groupCount() > 1) {
             String[] matches = matcher.group(2).split("\\s+");
             if (matches.length > 0 && matches[0].equals("")) {
                 matches = new String[0];
             }
-            context.args = matches;
+            context.setArgs(matches);
         }
         command.on(context);
     }

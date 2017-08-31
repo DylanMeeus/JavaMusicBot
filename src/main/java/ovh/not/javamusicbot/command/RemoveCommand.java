@@ -14,19 +14,19 @@ public class RemoveCommand extends Command {
     @SuppressWarnings("unchecked")
     @Override
     public void on(Context context) {
-        GuildMusicManager musicManager = GuildMusicManager.get(context.event.getGuild());
+        GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
         if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
-        if (context.args.length < 1) {
+        if (context.getArgs().length < 1) {
             context.reply("Usage: `%prefix%remove <song position>`\nExample: `%prefix%remove 5` - moves song at "
                     + "position 5 in queue");
             return;
         }
         int position;
         try {
-            position = Integer.parseInt(context.args[0]);
+            position = Integer.parseInt(context.getArgs()[0]);
         } catch (NumberFormatException e) {
             context.reply("Invalid song position!");
             return;

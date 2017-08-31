@@ -56,7 +56,7 @@ public class DiscordFMCommand extends Command {
 
     @Override
     public void on(Context context) {
-        VoiceChannel channel = context.event.getMember().getVoiceState().getChannel();
+        VoiceChannel channel = context.getEvent().getMember().getVoiceState().getChannel();
         if (channel == null) {
             context.reply("You must be in a voice channel!");
             return;
@@ -68,22 +68,22 @@ public class DiscordFMCommand extends Command {
             msg.delete().queue();
         }
 
-        if (context.args.length == 0) {
+        if (context.getArgs().length == 0) {
             context.reply(usageResponse);
             return;
         }
 
-        GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.event.getGuild(),
-                context.event.getTextChannel(), playerManager);
+        GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.getEvent().getGuild(),
+                context.getEvent().getTextChannel(), playerManager);
         if (musicManager.open && musicManager.player.getPlayingTrack() != null
                 && musicManager.channel != channel
-                && !context.event.getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
+                && !context.getEvent().getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
             context.reply("dabBot is already playing music in " + musicManager.channel.getName() + " so it cannot " +
                     "be moved. Members with the `VOICE_MOVE_OTHERS` permission are exempt from this.");
             return;
         }
 
-        String libraryName = String.join(" ", context.args);
+        String libraryName = String.join(" ", context.getArgs());
 
         Optional<Library> library = libraries.stream()
                 .filter(lib -> lib != null && lib.name.equalsIgnoreCase(libraryName))
@@ -121,7 +121,7 @@ public class DiscordFMCommand extends Command {
         }
 
         if (!musicManager.open) {
-            musicManager.open(channel, context.event.getAuthor());
+            musicManager.open(channel, context.getEvent().getAuthor());
         }
     }
 

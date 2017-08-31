@@ -64,7 +64,7 @@ public class CommandManager {
 
     public static void register(Map<String, Command> commands, Command... cmds) {
         for (Command command : cmds) {
-            for (String name : command.names) {
+            for (String name : command.getNames()) {
                 if (commands.containsKey(name)) {
                     throw new RuntimeException(String.format("Command name collision %s in %s!", name,
                             command.getClass().getName()));

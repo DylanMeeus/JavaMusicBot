@@ -11,8 +11,8 @@ public class ResetCommand extends Command {
 
     @Override
     public void on(Context context) {
-        if (GuildMusicManager.GUILDS.containsKey(context.event.getGuild())) {
-            GuildMusicManager musicManager = GuildMusicManager.GUILDS.remove(context.event.getGuild());
+        if (GuildMusicManager.GUILDS.containsKey(context.getEvent().getGuild())) {
+            GuildMusicManager musicManager = GuildMusicManager.GUILDS.remove(context.getEvent().getGuild());
             musicManager.player.stopTrack();
             musicManager.scheduler.queue.clear();
             musicManager.close();

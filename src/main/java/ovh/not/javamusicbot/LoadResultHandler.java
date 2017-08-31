@@ -66,7 +66,7 @@ public class LoadResultHandler implements AudioLoadResultHandler {
                 }
                 trackLoaded(track);
             });
-            commandManager.selectors.put(context.event.getMember(), selection);
+            commandManager.selectors.put(context.getEvent().getMember(), selection);
             context.reply(selection.createMessage());
         } else {
             audioPlaylist.getTracks().forEach(musicManager.scheduler::queue);
@@ -80,13 +80,13 @@ public class LoadResultHandler implements AudioLoadResultHandler {
             if (isSearch) {
                 context.reply("No song matches found! Usage: `%prefix%play <link or youtube video title>` or " +
                         "`%prefix%soundcloud <soundcloud song title>`");
-                if (context.event.getGuild().getAudioManager().isConnected() &&
+                if (context.getEvent().getGuild().getAudioManager().isConnected() &&
                         musicManager.player.getPlayingTrack() == null && musicManager.scheduler.queue.isEmpty()) {
                     musicManager.close();
                 }
             } else if (allowSearch) {
                 this.isSearch = true;
-                playerManager.loadItem("ytsearch: " + String.join(" ", context.args), this);
+                playerManager.loadItem("ytsearch: " + String.join(" ", context.getArgs()), this);
             }
         }
     }

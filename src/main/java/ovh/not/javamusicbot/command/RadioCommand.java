@@ -39,7 +39,7 @@ public class RadioCommand extends Command {
 
     @Override
     public void on(Context context) {
-        if (context.args.length == 0) {
+        if (context.getArgs().length == 0) {
             if (usageMessage.length() < 2000) {
                 context.reply(usageMessage);
             }
@@ -61,7 +61,7 @@ public class RadioCommand extends Command {
             context.reply(message);
             return;
         }
-        String station = "\"" + String.join(" ", context.args) + "\"";
+        String station = "\"" + String.join(" ", context.getArgs()) + "\"";
         String url = null;
         for (Map.Entry<String, String> entry : MusicBot.getConfigs().constants.radioStations.entrySet()) {
             if (entry.getKey().equalsIgnoreCase(station)) {
@@ -73,16 +73,16 @@ public class RadioCommand extends Command {
             context.reply("Invalid station! For usage & stations, use `%prefix%radio`");
             return;
         }
-        VoiceChannel channel = context.event.getMember().getVoiceState().getChannel();
+        VoiceChannel channel = context.getEvent().getMember().getVoiceState().getChannel();
         if (channel == null) {
             context.reply("You must be in a voice channel!");
             return;
         }
-        GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.event.getGuild(),
-                context.event.getTextChannel(), playerManager);
+        GuildMusicManager musicManager = GuildMusicManager.getOrCreate(context.getEvent().getGuild(),
+                context.getEvent().getTextChannel(), playerManager);
         if (musicManager.open && musicManager.player.getPlayingTrack() != null
                 && musicManager.channel != channel
-                && !context.event.getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
+                && !context.getEvent().getMember().hasPermission(musicManager.channel, Permission.VOICE_MOVE_OTHERS)) {
             context.reply("dabBot is already playing music in " + musicManager.channel.getName() + " so it cannot " +
                     "be moved. Members with the `VOICE_MOVE_OTHERS` permission are exempt from this.");
             return;
@@ -94,7 +94,7 @@ public class RadioCommand extends Command {
         musicManager.player.stopTrack();
         playerManager.loadItem(url, handler);
         if (!musicManager.open) {
-            musicManager.open(channel, context.event.getAuthor());
+            musicManager.open(channel, context.getEvent().getAuthor());
         }
     }
 }

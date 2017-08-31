@@ -16,18 +16,18 @@ public class JumpCommand extends Command {
 
     @Override
     public void on(Context context) {
-        GuildMusicManager musicManager = GuildMusicManager.get(context.event.getGuild());
+        GuildMusicManager musicManager = GuildMusicManager.get(context.getEvent().getGuild());
         if (musicManager == null || musicManager.player.getPlayingTrack() == null) {
             context.reply("No music is playing on this guild!");
             return;
         }
-        if (context.args.length == 0) {
+        if (context.getArgs().length == 0) {
             context.reply("Usage: `%prefix%jump <time>`\nExample: `%prefix%jump 03:51` - starts playing the current song "
                     + "at 3 min 51s instead of at the start.\nTime format: `hh:mm:ss`, e.g. 01:25:51 = 1 hour, "
                     + "25 minutes & 51 seconds");
             return;
         }
-        Matcher matcher = TIME_PATTERN.matcher(context.args[0]);
+        Matcher matcher = TIME_PATTERN.matcher(context.getArgs()[0]);
         if (!matcher.find()) {
             context.reply("Usage: `%prefix%jump <time>`\nExample: `%prefix%jump 03:51` - starts playing the current song "
                     + "at 3 min 51s instead of at the start.\nTime format: `hh:mm:ss`, e.g. 01:25:51 = 1 hour, "
