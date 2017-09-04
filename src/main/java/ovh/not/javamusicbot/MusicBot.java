@@ -48,8 +48,6 @@ public final class MusicBot {
             new ShardManager(shardCount, minShard, maxShard);
         } catch (Exception ex) {
             System.out.println("Could not instantiate with given variables, will create default ShardManager");
-            new ShardManager();
-            return;
         }
     }
 
